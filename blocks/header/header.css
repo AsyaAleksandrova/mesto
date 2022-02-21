@@ -1,0 +1,25 @@
+.header {
+  display: block;
+  width: 100vw;
+  height: 84px;
+  border-bottom: 1px solid #545454;
+}
+@media screen and (min-width: 768px) {
+  .header {
+    height: 119px;
+    margin: 0 50px;
+    width: calc(100vw - 100px);
+  }
+}
+@media screen and (min-width: 1024px) {
+  .header {
+    margin: 0 100px;
+    width: calc(100vw - 200px);
+  }
+}
+@media screen and (min-width: 1280px) {
+  .header {
+    margin: 0 200px;
+    width: calc(100vw - 400px);
+  }
+}

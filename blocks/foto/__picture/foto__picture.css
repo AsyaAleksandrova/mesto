@@ -1,0 +1,6 @@
+.foto__picture {
+  width: 100%;
+  -o-object-fit: contain;
+  object-fit: contain;
+  border-radius: 10px;
+}
