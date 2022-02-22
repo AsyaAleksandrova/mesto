@@ -7,7 +7,8 @@ const UserDesc = document.querySelector('.profile__description');
 const InputName = document.querySelector('.popup__input-name');
 const InputDesc = document.querySelector('.popup__input-desc');
 const SaveButton = document.querySelector('.popup__button');
-const LikeTag = document.querySelectorAll('.foto__heart')
+const LikeTag = document.querySelectorAll('.foto__heart');
+const LikeCheck = document.querySelectorAll('.foto__like-button');
 
 
 const OpenPopup = function () {
@@ -28,3 +29,19 @@ SaveButton.addEventListener('click', function() {
    UserDesc.textContent = InputDesc.value;
    ClosePopup();
 })
+ 
+
+const LikeFunc = function (check) {
+      let i = check.getAttribute('id');
+         LikeTag.forEach(tag => {
+            let k = tag.getAttribute('for');
+            if (i == k) {
+               tag.classList.toggle('foto__heart_active');
+            }
+         });
+      }
+LikeCheck.forEach(check => {
+   check.addEventListener('click', e => LikeFunc(e.target))
+   });
+
+
