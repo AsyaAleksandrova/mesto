@@ -1,47 +1,43 @@
 
 const editButton = document.querySelector('.profile__edit-button');
 const editPopup = document.querySelector('.popup');
-const closePopup = editPopup.querySelector('.popup__close');
-const UserName = document.querySelector('.profile__name');
-const UserDesc = document.querySelector('.profile__description');
-const InputName = document.querySelector('.popup__input-name');
-const InputDesc = document.querySelector('.popup__input-desc');
-const SaveButton = document.querySelector('.popup__button');
-const LikeTag = document.querySelectorAll('.foto__heart');
-const LikeCheck = document.querySelectorAll('.foto__like-button');
+const contentPopup = document.querySelector('.popup__content')
+const closeButton = editPopup.querySelector('.popup__close');
+const userName = document.querySelector('.profile__name');
+const userDesc = document.querySelector('.profile__description');
+const inputName = document.querySelector('.popup__input_value_name');
+const inputDesc = document.querySelector('.popup__input_value_desc');
+const saveButton = document.querySelector('.popup__button');
+const likeCheck = document.querySelectorAll('.foto__like-button');
 
 
-const OpenPopup = function () {
-   InputName.value = UserName.textContent;
-   InputDesc.value = UserDesc.textContent;
+const openPopup = function () {
+   inputName.value = userName.textContent;
+   inputDesc.value = userDesc.textContent;
    editPopup.classList.add('popup_open');
+   contentPopup.classList.add('popup_open');
 }
 
-const ClosePopup = function () {
+const closePopup = function () {
    editPopup.classList.remove('popup_open');
+   contentPopup.classList.remove('popup_open');
 }
 
-editButton.addEventListener('click', OpenPopup);
-closePopup.addEventListener('click', ClosePopup);
+editButton.addEventListener('click', openPopup);
+closeButton.addEventListener('click', closePopup);
 
-SaveButton.addEventListener('click', function() {
-   UserName.textContent = InputName.value;
-   UserDesc.textContent = InputDesc.value;
-   ClosePopup();
+saveButton.addEventListener('click', function() {
+   userName.textContent = inputName.value;
+   userDesc.textContent = inputDesc.value;
+   closePopup();
 })
  
+const likeFunc = function (check) {
+   check.classList.toggle('foto__like-button_active')
+}
 
-const LikeFunc = function (check) {
-      let i = check.getAttribute('id');
-         LikeTag.forEach(tag => {
-            let k = tag.getAttribute('for');
-            if (i == k) {
-               tag.classList.toggle('foto__heart_active');
-            }
-         });
-      }
-LikeCheck.forEach(check => {
-   check.addEventListener('click', e => LikeFunc(e.target))
-   });
 
+likeCheck.forEach(check => {
+    check.addEventListener('click', e => likeFunc(e.target))
+    });
 

@@ -4,8 +4,8 @@
   bottom: 5px;
   width: 18px;
   height: 18px;
-  background-color: #000000;
-  background-image: url(../../../images/Point.png);
+  background-color: rgba(0, 0, 0, 0);
+  background-image: url(../../../images/point.svg);
   background-size: 50%;
   background-repeat: no-repeat;
   background-position: center;

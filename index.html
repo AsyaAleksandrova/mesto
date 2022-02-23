@@ -5,12 +5,12 @@
    <meta http-equiv="X-UA-Compatible" content="IE=edge">
    <meta name="viewport" content="width=device-width, initial-scale=1.0">
    <title>Mesto</title>
-   <link rel="icon" href="./images/internet.png">
+   <link rel="icon" href="./images/icon.svg">
    <link rel="stylesheet" href="./pages/index.css">
 </head>
 <body class="root">
    <header class="header">
-      <img src="./images/Logo_white.png" alt="Логотип" class="header__logo">
+      <img src="./images/logo.svg" alt="Логотип" class="header__logo">
    </header>
    <main class="content">
       <section class="profile">
@@ -18,20 +18,11 @@
          <div>
             <div class="profile__info">
                <h1 class="profile__name">Жак-Ив Кусто</h1>
-               <button class="profile__edit-button"></button>
+               <button type="button" class="profile__edit-button"></button>
             </div>
             <p class="profile__description">Исследователь океана</p>      
          </div>
-         <div class="popup">
-            <form class="popup__content">
-               <a href="#"><img src="./images/Close_Icon.png" alt="Закрыть" class="popup__close"></a>
-               <p class="popup__title">Редактировать профиль</p>
-               <input type="text" class="popup__input popup__input-name" value="Жак-Ив Кусто">
-               <input type="text" class="popup__input popup__input-desc" value="Исследователь океана">
-               <button class="popup__button">Сохранить</button>
-            </form>
-         </div>
-         <button class="profile__add-button"></button>
+         <button type="button" class="profile__add-button"></button>
       </section>
      <section>
       <ul class="foto">
@@ -39,48 +30,42 @@
             <img src="./images/kirill-pershin-1088404-unsplash.jpg" alt="Карачаевск" class="foto__picture">
             <div class="foto__description">
                <h2 class="foto__name">Карачаевск</h2>
-               <input type="checkbox" class="foto__like-button" id="checkbox_1">
-               <label class="foto__heart" for="checkbox_1"></label>
+               <button type="button" class="foto__like-button" id="checkbox_1"></button>
             </div>
          </li>
          <li class="foto__item">
             <img src="./images/kirill-pershin-1556355-unsplash.jpg" alt="Эльбрус" class="foto__picture">
             <div class="foto__description">
                <h2 class="foto__name">Гора Эльбрус</h2>
-               <input type="checkbox" class="foto__like-button" id="checkbox_2">
-               <label class="foto__heart" for="checkbox_2"></label>
+               <button type="button" class="foto__like-button" id="checkbox_2"></button>
             </div>
          </li>
          <li class="foto__item">
             <img src="./images/kirill-pershin-1404681-unsplash.jpg" alt="Домбай" class="foto__picture">
             <div class="foto__description">
                <h2 class="foto__name">Домбай</h2>
-               <input type="checkbox" class="foto__like-button" id="checkbox_3">
-               <label class="foto__heart" for="checkbox_3"></label>
+               <button type="button" class="foto__like-button" id="checkbox_3"></button>
             </div>
          </li>
          <li class="foto__item">
             <img src="./images/kirill-pershin-1556355-unsplash.jpg" alt="Эльбрус" class="foto__picture">
             <div class="foto__description">
                <h2 class="foto__name">Гора Эльбрус</h2>
-               <input type="checkbox" class="foto__like-button" id="checkbox_4">
-               <label class="foto__heart" for="checkbox_4"></label>
+               <button type="button" class="foto__like-button" id="checkbox_4"></button>
             </div>
          </li>
          <li class="foto__item">
             <img src="./images/kirill-pershin-1404681-unsplash.jpg" alt="Домбай" class="foto__picture">
             <div class="foto__description">
                <h2 class="foto__name">Домбай</h2>
-               <input type="checkbox" class="foto__like-button" id="checkbox_5">
-               <label class="foto__heart" for="checkbox_5"></label>
+               <button type="button" class="foto__like-button" id="checkbox_5"></button>
             </div>
          </li>
          <li class="foto__item">
             <img src="./images/kirill-pershin-1088404-unsplash.jpg" alt="Карачаевск" class="foto__picture">
             <div class="foto__description">
                <h2 class="foto__name">Карачаевск</h2>
-               <input type="checkbox" class="foto__like-button" id="checkbox_6">
-               <label class="foto__heart" for="checkbox_6"></label>
+               <button type="button" class="foto__like-button" id="checkbox_6"></button>
             </div>
          </li>
       </ul>
@@ -89,6 +74,17 @@
    <footer class="footer">
       <p class="footer__copyright">&copy; 2020 Mesto Russia</p>
    </footer>
+   <section class="popup">
+      <div class="popup__content">
+         <form name="input-profile" action="" method="post">
+            <button type="button" class="popup__close"></button>
+            <h2 class="popup__title">Редактировать профиль</h2>
+            <input type="text" name="profile-name"  class="popup__input popup__input_value_name" value="Жак-Ив Кусто">
+            <input type="text" name="profile-description" class="popup__input popup__input_value_desc" value="Исследователь океана">
+            <button type="button" class="popup__button">Сохранить</button>
+         </form>
+      </div>
+   </section>
   <script src="./scripts/popup.js"></script>
 </body>
 

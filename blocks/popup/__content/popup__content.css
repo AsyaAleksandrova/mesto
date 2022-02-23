@@ -1,8 +1,8 @@
 .popup__content {
   background-color: #ffffff;
   border-radius: 10px;
+  box-shadow: 0px 0px 25px rgba(0, 0, 0, 0.15);
   width: 238px;
-  height: 272px;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -17,26 +17,18 @@
   z-index: 2;
   opacity: 0;
   visibility: hidden;
-  -webkit-transition: all 0.9s ease;
+  /* -webkit-transition: all 0.9s ease;
   -o-transition: all 0.9s ease;
   transition: all 0.9s ease;
   -webkit-transform: translate(0, -100%) rotate(180deg);
   -ms-transform: translate(0, -100%) rotate(180deg);
-  transform: translate(0, -100%) rotate(180deg);
+  transform: translate(0, -100%) rotate(180deg); */
   position: relative;
 }
 
-.popup_open .popup__content {
-  -webkit-transform: translate(0, 0) rotate(0);
-  -ms-transform: translate(0, 0) rotate(0);
-  transform: translate(0, 0) rotate(0);
-  opacity: 1;
-  visibility: visible;
-}
 @media screen and (min-width: 768px) {
   .popup__content {
     width: 358px;
-    height: 259px;
     padding: 34px 36px 37px;
   }
 }

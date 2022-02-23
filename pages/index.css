@@ -22,8 +22,7 @@
 @import url(../blocks/foto/__description/foto__description.css);
 @import url(../blocks/foto/__item/foto__item.css);
 @import url(../blocks/foto/__like-button/foto__like-button.css);
-@import url(../blocks/foto/__heart/foto__heart.css);
-@import url(../blocks/foto/__heart/_active/foto__heart_active.css);
+@import url(../blocks/foto/__like-button/_active/foto__like-button_active.css);
 @import url(../blocks/foto/__name/foto__name.css);
 @import url(../blocks/foto/__picture/foto__picture.css);
 @import url(../blocks/footer/footer.css);
