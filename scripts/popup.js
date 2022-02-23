@@ -7,8 +7,8 @@ const userName = document.querySelector('.profile__name');
 const userDesc = document.querySelector('.profile__description');
 const inputName = document.querySelector('.popup__input_value_name');
 const inputDesc = document.querySelector('.popup__input_value_desc');
-const saveButton = document.querySelector('.popup__button');
-const likeCheck = document.querySelectorAll('.foto__like-button');
+const saveForm = document.querySelector('.popup__form');
+// const likeCheck = document.querySelectorAll('.foto__like-button');
 
 
 const openPopup = function () {
@@ -23,21 +23,24 @@ const closePopup = function () {
    contentPopup.classList.remove('popup_open');
 }
 
-editButton.addEventListener('click', openPopup);
-closeButton.addEventListener('click', closePopup);
-
-saveButton.addEventListener('click', function() {
+const savePopup = function (ev) {
+   ev.preventDefault();
    userName.textContent = inputName.value;
    userDesc.textContent = inputDesc.value;
    closePopup();
-})
- 
-const likeFunc = function (check) {
-   check.classList.toggle('foto__like-button_active')
 }
 
+// const likeFunc = function (check) {
+//    check.classList.toggle('foto__like-button_active')
+// }
 
-likeCheck.forEach(check => {
-    check.addEventListener('click', e => likeFunc(e.target))
-    });
+
+editButton.addEventListener('click', openPopup);
+closeButton.addEventListener('click', closePopup);
+saveForm.addEventListener('submit', savePopup)
+
+
+// likeCheck.forEach(check => {
+//     check.addEventListener('click', e => likeFunc(e.target))
+//     });
 
