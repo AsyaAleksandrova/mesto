@@ -15,8 +15,8 @@
   align-items: center;
   padding: 25px 22px;
   z-index: 2;
-  opacity: 0;
-  visibility: hidden;
+  opacity: inherit;
+  visibility: inherit;
   /* -webkit-transition: all 0.9s ease;
   -o-transition: all 0.9s ease;
   transition: all 0.9s ease;

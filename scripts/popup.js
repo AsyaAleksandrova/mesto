@@ -8,19 +8,17 @@ const userDesc = document.querySelector('.profile__description');
 const inputName = document.querySelector('.popup__input_value_name');
 const inputDesc = document.querySelector('.popup__input_value_desc');
 const saveForm = document.querySelector('.popup__form');
-// const likeCheck = document.querySelectorAll('.foto__like-button');
+const likeCheck = document.querySelectorAll('.foto__like-button');
 
 
 const openPopup = function () {
    inputName.value = userName.textContent;
    inputDesc.value = userDesc.textContent;
    editPopup.classList.add('popup_open');
-   contentPopup.classList.add('popup_open');
 }
 
 const closePopup = function () {
    editPopup.classList.remove('popup_open');
-   contentPopup.classList.remove('popup_open');
 }
 
 const savePopup = function (ev) {
@@ -30,9 +28,9 @@ const savePopup = function (ev) {
    closePopup();
 }
 
-// const likeFunc = function (check) {
-//    check.classList.toggle('foto__like-button_active')
-// }
+const likeFunc = function (check) {
+   check.classList.toggle('foto__like-button_active')
+}
 
 
 editButton.addEventListener('click', openPopup);
@@ -40,7 +38,7 @@ closeButton.addEventListener('click', closePopup);
 saveForm.addEventListener('submit', savePopup)
 
 
-// likeCheck.forEach(check => {
-//     check.addEventListener('click', e => likeFunc(e.target))
-//     });
+likeCheck.forEach(check => {
+    check.addEventListener('click', e => likeFunc(e.target))
+    });
 
