@@ -25,5 +25,9 @@
 @import url(../blocks/foto/__like-button/_active/foto__like-button_active.css);
 @import url(../blocks/foto/__name/foto__name.css);
 @import url(../blocks/foto/__picture/foto__picture.css);
+@import url(../blocks/foto/__delete-button/foto__delete-button.css);
+@import url(../blocks/popup/__preview/popup__preview.css);
+@import url(../blocks/popup/__picture/popup__picture.css);
+@import url(../blocks/popup/__description/popup__description.css);
 @import url(../blocks/footer/footer.css);
 @import url(../blocks/footer/__copyright/footer__copyright.css);

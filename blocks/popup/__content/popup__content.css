@@ -17,12 +17,9 @@
   z-index: 2;
   opacity: inherit;
   visibility: inherit;
-  /* -webkit-transition: all 0.9s ease;
-  -o-transition: all 0.9s ease;
-  transition: all 0.9s ease;
-  -webkit-transform: translate(0, -100%) rotate(180deg);
-  -ms-transform: translate(0, -100%) rotate(180deg);
-  transform: translate(0, -100%) rotate(180deg); */
+   -webkit-transition: visibility 0s, opacity 0.5s ease;
+  -o-transition: visibility 0s, opacity 0.5 ease;
+  transition: visibility 0s, opacity 0.5 ease;
   position: relative;
 }
 
