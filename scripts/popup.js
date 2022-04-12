@@ -102,6 +102,8 @@ closeButton.addEventListener('click', function () {
 saveForm.addEventListener('submit', savePopup);
 
 fotoAddButton.addEventListener('click', function () {
+   inputFotoName.value = '';
+   inputFotoLink.value = '';
    openPopup(fotoPopup);
 });
 
