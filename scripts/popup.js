@@ -18,7 +18,6 @@ const picturePreviewFoto = popupPreview.querySelector('.popup__picture')
 const fotoList = document.querySelector('.foto');
 const fotoTemplate = document.querySelector('#card').content;
 const buttonFotoAdd = document.querySelector('.profile__add-button');
-const formList = Array.from(document.querySelectorAll('.popup__form'));
 
 
 const openPopup = function (popOp) { 
@@ -127,59 +126,3 @@ document.addEventListener('keydown', (ev) => {
       closePopup(popupPreview);
    }
 })
-
-const showError = (form, input, error) => {
-   input.classList.add('.popup__input_type_error');
-   form.querySelector(`.${input.name}-error`).textContent = error;
-}
-
-const hideError = (form, input) => {
-   input.classList.remove('.popup__input_type_error');
-   form.querySelector(`.${input.name}-error`).textContent = " ";
-}
-
-const checkFormIsValid = (inputList) => {
-   return !inputList.some((input) => {
-      return !input.validity.valid;
-   })
-}
-
-const activateFormButton = (formItem, inputList) => {
-   const formButton = formItem.querySelector('.popup__button');
-   if (checkFormIsValid(inputList)) {
-      formButton.classList.remove('popup__button_disabled');
-      formButton.disabled = false;
-   }
-   else {
-      formButton.classList.add('popup__button_disabled');
-      formButton.disabled = true;
-   }
-}
-
-const validateInputs = (formItem) => {
-   const inputList = Array.from(formItem.querySelectorAll('.popup__input'));
-   activateFormButton(formItem, inputList);
-   inputList.forEach((input) => {
-      input.addEventListener('input', () => { 
-         if (!input.validity.valid) {
-            showError(formItem, input, input.validationMessage);
-         }
-         else {
-            hideError(formItem, input);
-         }
-         activateFormButton(formItem, inputList);
-      })
-
-   })
-}
-
-const validateForms = (formList) => {
-   formList.forEach((formItem) => {
-      formItem.addEventListener('submit', (ev) => {
-         ev.preventDefault();
-      });
-      validateInputs(formItem);
-   })
-}
-
-validateForms(formList);
