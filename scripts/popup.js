@@ -18,15 +18,34 @@ const picturePreviewFoto = popupPreview.querySelector('.popup__picture')
 const fotoList = document.querySelector('.foto');
 const fotoTemplate = document.querySelector('#card').content;
 const buttonFotoAdd = document.querySelector('.profile__add-button');
+const popupList = Array.from(document.querySelectorAll('.popup'));
 
 
 const openPopup = function (popOp) { 
-   popOp.classList.add('popup_open'); 
+   popOp.classList.add('popup_open');
+   document.addEventListener('keydown', closeByEsc);
+   const evtOpen = new Event('open')
+   popOp.dispatchEvent(evtOpen)
 } 
 
 const closePopup = function (popCl) { 
-   popCl.classList.remove('popup_open'); 
+   popCl.classList.remove('popup_open');
+   document.removeEventListener('keydown', closeByEsc);
 } 
+const closeByEsc = (ev) => {
+   const popOpened = document.querySelector('.popup_open')
+   if (ev.key === "Escape") {
+      closePopup(popOpened);
+   }
+}
+
+popupList.forEach(popup => {
+   popup.addEventListener('click', (ev) => {
+      if (ev.target === popup) {
+         closePopup(popup);
+      }
+   })
+})
 
 const savePopup = function (ev) {
    ev.preventDefault();
@@ -47,7 +66,6 @@ const previewFunc = function (ev) {
    const pic = ev.target;
    namePreviewFoto.textContent = pic.alt;
    picturePreviewFoto.src = pic.src;
-   console.log(namePreviewFoto.textContent);
    openPopup(popupPreview);
 }
 
@@ -107,22 +125,4 @@ formFotoAdd.addEventListener('submit', (ev) => {
       }
    saveFoto(newCard);
    closePopup(popupFotoAdd);
-})
-
-const closePopupOutline = (ev, popup) => {
-   if (ev.target===popup) {
-      closePopup(popup);
-   }
-}
-
-popupProfile.addEventListener('click', (ev) => closePopupOutline(ev, popupProfile));
-popupFotoAdd.addEventListener('click', (ev) => closePopupOutline(ev, popupFotoAdd));
-popupPreview.addEventListener('click', (ev) => closePopupOutline(ev, popupPreview));
-
-document.addEventListener('keydown', (ev) => {
-   if (ev.key === "Escape") {
-      closePopup(popupProfile);
-      closePopup(popupFotoAdd);
-      closePopup(popupPreview);
-   }
 })
