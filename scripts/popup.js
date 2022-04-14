@@ -18,6 +18,7 @@ const picturePreviewFoto = popupPreview.querySelector('.popup__picture')
 const fotoList = document.querySelector('.foto');
 const fotoTemplate = document.querySelector('#card').content;
 const buttonFotoAdd = document.querySelector('.profile__add-button');
+const formList = Array.from(document.querySelectorAll('.popup__form'));
 
 
 const openPopup = function (popOp) { 
@@ -99,9 +100,8 @@ buttonClosePreview.addEventListener('click', function () {
    closePopup(popupPreview);
 })
 
-formFotoAdd.addEventListener('submit', function (ev) {
+formFotoAdd.addEventListener('submit', (ev) => {
    ev.preventDefault();
-
    const newCard = {
          name: inputFotoName.value,
          link: inputFotoLink.value
@@ -110,7 +110,76 @@ formFotoAdd.addEventListener('submit', function (ev) {
    closePopup(popupFotoAdd);
 })
 
+const closePopupOutline = (ev, popup) => {
+   if (ev.target===popup) {
+      closePopup(popup);
+   }
+}
 
-//Если не сложно, поясните, пожалуйста, какие функции лишние (что понимается под "функциями-обертками")
-//Из замечаний: Присутствует большое количество функций-обёрток, без которых вполне можно обойтись.
+popupProfile.addEventListener('click', (ev) => closePopupOutline(ev, popupProfile));
+popupFotoAdd.addEventListener('click', (ev) => closePopupOutline(ev, popupFotoAdd));
+popupPreview.addEventListener('click', (ev) => closePopupOutline(ev, popupPreview));
 
+document.addEventListener('keydown', (ev) => {
+   if (ev.key === "Escape") {
+      closePopup(popupProfile);
+      closePopup(popupFotoAdd);
+      closePopup(popupPreview);
+   }
+})
+
+const showError = (form, input, error) => {
+   input.classList.add('.popup__input_type_error');
+   form.querySelector(`.${input.name}-error`).textContent = error;
+}
+
+const hideError = (form, input) => {
+   input.classList.remove('.popup__input_type_error');
+   form.querySelector(`.${input.name}-error`).textContent = " ";
+}
+
+const checkFormIsValid = (inputList) => {
+   return !inputList.some((input) => {
+      return !input.validity.valid;
+   })
+}
+
+const activateFormButton = (formItem, inputList) => {
+   const formButton = formItem.querySelector('.popup__button');
+   if (checkFormIsValid(inputList)) {
+      formButton.classList.remove('popup__button_disabled');
+      formButton.disabled = false;
+   }
+   else {
+      formButton.classList.add('popup__button_disabled');
+      formButton.disabled = true;
+   }
+}
+
+const validateInputs = (formItem) => {
+   const inputList = Array.from(formItem.querySelectorAll('.popup__input'));
+   activateFormButton(formItem, inputList);
+   inputList.forEach((input) => {
+      input.addEventListener('input', () => { 
+         if (!input.validity.valid) {
+            showError(formItem, input, input.validationMessage);
+         }
+         else {
+            hideError(formItem, input);
+         }
+         activateFormButton(formItem, inputList);
+      })
+
+   })
+}
+
+const validateForms = (formList) => {
+   formList.forEach((formItem) => {
+      formItem.addEventListener('submit', (ev) => {
+         ev.preventDefault();
+      });
+      validateInputs(formItem);
+   })
+}
+
+validateForms(formList);
