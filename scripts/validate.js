@@ -1,26 +1,20 @@
-const formSelector = '.popup__form';
-const inputSelector = '.popup__input';
-const submitButtonSelector = '.popup__button';
-const inactiveButtonClass = 'popup__button_disabled';
-const inputErrorClass = 'popup__input_type_error';
-const errorClass = 'popup__error_visible';
 const selectorsValid = {
-   formSelector,
-   inputSelector,
-   submitButtonSelector,
-   inactiveButtonClass,
-   inputErrorClass,
-   errorClass
+   formSelector: '.popup__form',
+   inputSelector: '.popup__input',
+   submitButtonSelector: '.popup__button',
+   inactiveButtonClass: 'popup__button_disabled',
+   inputErrorClass: 'popup__input_type_error',
+   errorClass: 'popup__error_visible'
 }
 
 
-const showError = ({ inputError, input, error, ...selectorsValid }) => {
+const showError = ({ inputError, input, error, inputErrorClass, errorClass, ...restObj }) => {
    input.classList.add(inputErrorClass);
    inputError.textContent = error;
    inputError.classList.add(errorClass);
 }
 
-const hideError = ({ inputError, input, ...selectorsValid }) => {
+const hideError = ({ inputError, input, inputErrorClass, errorClass, ...restObj }) => {
    input.classList.remove(inputErrorClass);
    inputError.textContent = " ";
    inputError.classList.remove(errorClass);
@@ -32,46 +26,52 @@ const checkFormIsValid = (inputList) => {
    })
 }
 
-const activateFormButton = ({ formItem, inputList, ...selectorsValid }) => {
-   const formButton = formItem.querySelector(submitButtonSelector);
+const activateSubmitButton = (formButton, inactiveButtonClass) => {
+   formButton.classList.remove(inactiveButtonClass);
+   formButton.disabled = false;
+}
+
+const disableSubmitButton = (formButton, inactiveButtonClass) => {
+   formButton.classList.add(inactiveButtonClass);
+   formButton.disabled = true;
+}
+
+const checkSubmitButton = ({ inputList, formButton, inactiveButtonClass, ...restObj }) => {
    if (checkFormIsValid(inputList)) {
-      formButton.classList.remove(inactiveButtonClass);
-      formButton.disabled = false;
+      activateSubmitButton(formButton, inactiveButtonClass);
    }
    else {
-      formButton.classList.add(inactiveButtonClass);
-      formButton.disabled = true;
+      disableSubmitButton(formButton, inactiveButtonClass);
    }
 }
 
-const validateInputs = ({ formItem, ...selectorsValid }) => {
+const validateInputs = ({ formItem, inputSelector, submitButtonSelector, ...restObj }) => {
    const inputList = Array.from(formItem.querySelectorAll(inputSelector));
-   formItem.closest('.popup').addEventListener('open', () => {
-      activateFormButton({ formItem, inputList, ...selectorsValid });
-   })
+   const formButton = formItem.querySelector(submitButtonSelector);
+
    inputList.forEach((input) => {
       const inputError = formItem.querySelector(`.${input.name}-error`);
-      const error = input.validationMessage
       input.addEventListener('input', () => { 
+         const error = input.validationMessage;
          if (!input.validity.valid) {
-            showError({ inputError, input, error, ...selectorsValid });
+            showError({ inputError, input, error, ...restObj });
          }
          else {
-            hideError({ inputError, input, ...selectorsValid });
+            hideError({ inputError, input, ...restObj });
          }
-         activateFormButton({ formItem, inputList, ...selectorsValid });
+         checkSubmitButton({ inputList, formButton, ...restObj });
       })
 
    })
 }
 
-const enableValidation = ({...selectorsValid }) => {
+const enableValidation = ({ formSelector, ...restObj }) => {
    const formList = Array.from(document.querySelectorAll(formSelector));
    formList.forEach((formItem) => {
       formItem.addEventListener('submit', (ev) => {
          ev.preventDefault();
       });
-      validateInputs({ formItem, ...selectorsValid });
+      validateInputs({ formItem, ...restObj});
    })
 }
 

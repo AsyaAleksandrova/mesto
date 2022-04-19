@@ -24,8 +24,6 @@ const popupList = Array.from(document.querySelectorAll('.popup'));
 const openPopup = function (popOp) { 
    popOp.classList.add('popup_open');
    document.addEventListener('keydown', closeByEsc);
-   const evtOpen = new Event('open')
-   popOp.dispatchEvent(evtOpen)
 } 
 
 const closePopup = function (popCl) { 
@@ -106,6 +104,8 @@ formProfile.addEventListener('submit', savePopup);
 buttonFotoAdd.addEventListener('click', function () {
    inputFotoName.value = '';
    inputFotoLink.value = '';
+   const formButton = popupFotoAdd.querySelector('.popup__button');
+   disableSubmitButton(formButton, selectorsValid.inactiveButtonClass)
    openPopup(popupFotoAdd);
 });
 
