@@ -19,7 +19,7 @@ const fotoList = document.querySelector('.foto');
 const fotoTemplate = document.querySelector('#card').content;
 const buttonFotoAdd = document.querySelector('.profile__add-button');
 const popupList = Array.from(document.querySelectorAll('.popup'));
-
+const buttonSubmitFotoAdd = popupFotoAdd.querySelector('.popup__button');
 
 const openPopup = function (popOp) { 
    popOp.classList.add('popup_open');
@@ -31,8 +31,8 @@ const closePopup = function (popCl) {
    document.removeEventListener('keydown', closeByEsc);
 } 
 const closeByEsc = (ev) => {
-   const popOpened = document.querySelector('.popup_open')
    if (ev.key === "Escape") {
+      const popOpened = document.querySelector('.popup_open');
       closePopup(popOpened);
    }
 }
@@ -104,8 +104,7 @@ formProfile.addEventListener('submit', savePopup);
 buttonFotoAdd.addEventListener('click', function () {
    inputFotoName.value = '';
    inputFotoLink.value = '';
-   const formButton = popupFotoAdd.querySelector('.popup__button');
-   disableSubmitButton(formButton, selectorsValid.inactiveButtonClass)
+   disableSubmitButton(buttonSubmitFotoAdd, selectorsValid.inactiveButtonClass)
    openPopup(popupFotoAdd);
 });
 
