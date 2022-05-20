@@ -54,7 +54,7 @@ const initialCards = [
 ];
 
 import { FormValidator } from './FormValidator.js';
-import { Card } from './cards.js';
+import { Card } from './card.js';
 
 const saveFoto = function (card) {
    const userCard = new Card(card, '#card');
