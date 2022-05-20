@@ -11,12 +11,12 @@ const buttonCloseFotoAdd = popupFotoAdd.querySelector('.popup__close');
 const inputFotoName = document.querySelector('.popup__input_foto_name');
 const inputFotoLink = document.querySelector('.popup__input_foto_src');
 const formFotoAdd = popupFotoAdd.querySelector('.popup__form');
-const popupPreview = document.querySelector('.popup_type_foto-preview');
+export const popupPreview = document.querySelector('.popup_type_foto-preview');
+export const namePreviewFoto = popupPreview.querySelector('.popup__description');
+export const picturePreviewFoto = popupPreview.querySelector('.popup__picture');
 const buttonClosePreview = popupPreview.querySelector('.popup__close');
 const buttonFotoAdd = document.querySelector('.profile__add-button');
 const popupList = Array.from(document.querySelectorAll('.popup'));
-const buttonSubmitFotoAdd = popupFotoAdd.querySelector('.popup__button');
-const forms = document.querySelectorAll('.popup__form');
 const fotoList = document.querySelector('.foto');
 const selectorsValid = {
    formSelector: '.popup__form',
@@ -54,12 +54,16 @@ const initialCards = [
 ];
 
 import { FormValidator } from './FormValidator.js';
-import { Card } from './card.js';
+import { Card } from './Card.js';
+
+const insertFoto = function (newcard) {
+   fotoList.prepend(newcard);
+}
 
 const saveFoto = function (card) {
    const userCard = new Card(card, '#card');
    const newCard = userCard.createCard();
-   fotoList.prepend(newCard);
+   insertFoto(newCard);
 }
 
 const preloadCards = function (preloadCards) {
@@ -68,16 +72,16 @@ const preloadCards = function (preloadCards) {
    });
 }
 
-
-forms.forEach(form => {
-   const validForm = new FormValidator(selectorsValid, form)
-   validForm.enableValidation();
-});
-
 preloadCards(initialCards);
 
 
-const openPopup = function (popOp) { 
+const validProfile = new FormValidator(selectorsValid, formProfile);
+validProfile.enableValidation();
+const validFotoAdd = new FormValidator(selectorsValid, formFotoAdd);
+validFotoAdd.enableValidation();
+
+
+export const openPopup = function (popOp) { 
    popOp.classList.add('popup_open');
    document.addEventListener('keydown', closeByEsc);
 } 
@@ -123,20 +127,13 @@ formProfile.addEventListener('submit', savePopup);
 buttonFotoAdd.addEventListener('click', function () {
    inputFotoName.value = '';
    inputFotoLink.value = '';
-   const validForm = new FormValidator(selectorsValid, formFotoAdd)
-   validForm.disableSubmitButton(buttonSubmitFotoAdd);
+   validFotoAdd.disableSubmitButton();
    openPopup(popupFotoAdd);
 });
 
 buttonCloseFotoAdd.addEventListener('click', function () {
    closePopup(popupFotoAdd);
 });
-
-document.querySelectorAll('.foto__picture').forEach(photo => {
-   photo.addEventListener('click', function () {
-      openPopup(popupPreview);
-   })
-})
 
 buttonClosePreview.addEventListener('click', function () {
    closePopup(popupPreview);

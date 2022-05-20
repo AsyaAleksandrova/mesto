@@ -1,6 +1,6 @@
-const popupPreview = document.querySelector('.popup_type_foto-preview');
-const namePreviewFoto = popupPreview.querySelector('.popup__description');
-const picturePreviewFoto = popupPreview.querySelector('.popup__picture');
+
+import { popupPreview, namePreviewFoto, picturePreviewFoto, openPopup } from './index.js';
+
 
 export class Card {
    constructor(data, selector) {
@@ -18,26 +18,25 @@ export class Card {
       return userCard;
    }
   
-   _previewFunc(ev) {
-      namePreviewFoto.textContent = ev.target.alt;
-      picturePreviewFoto.src = ev.target.src;
+   _previewFunc() {
+      namePreviewFoto.textContent = this._name;
+      picturePreviewFoto.src = this._link;
+      picturePreviewFoto.alt = this._name; 
+      openPopup(popupPreview);
+   }
+   
+   _likeFunc() {
+      this._likeButton.classList.toggle('foto__like-button_active');
    }
 
-   _likeFunc(ev) {
-      ev.target.classList.toggle('foto__like-button_active');
-   }
-
-   _deleteCard(ev) {
-      ev.target.closest('.foto__item').remove();
+   _deleteCard() {
+      this._card.remove();
    }
 
    _setEventListeners() {
-      this._card.querySelector('.foto__picture').addEventListener('click', (ev) => {
-         this._previewFunc(ev)});
-      this._card.querySelector('.foto__like-button').addEventListener('click', (ev) => {
-         this._likeFunc(ev)});
-      this._card.querySelector('.foto__delete-button').addEventListener('click', (ev) => {
-         this._deleteCard(ev)});
+      this._card.querySelector('.foto__picture').addEventListener('click', () => this._previewFunc());
+      this._likeButton.addEventListener('click', () => this._likeFunc());
+      this._card.querySelector('.foto__delete-button').addEventListener('click', () => this._deleteCard());
    }  
 
    createCard() {
@@ -45,6 +44,7 @@ export class Card {
       this._card.querySelector('.foto__picture').src = this._link;
       this._card.querySelector('.foto__picture').alt = this._name;
       this._card.querySelector('.foto__name').textContent = this._name;
+      this._likeButton = this._card.querySelector('.foto__like-button');
       this._setEventListeners();
       return this._card;
    }
