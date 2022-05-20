@@ -1,5 +1,4 @@
-
-import {popupPreview, openPopup} from './index.js'
+const popupPreview = document.querySelector('.popup_type_foto-preview');
 const namePreviewFoto = popupPreview.querySelector('.popup__description');
 const picturePreviewFoto = popupPreview.querySelector('.popup__picture');
 
@@ -22,7 +21,6 @@ export class Card {
    _previewFunc(ev) {
       namePreviewFoto.textContent = ev.target.alt;
       picturePreviewFoto.src = ev.target.src;
-      openPopup(popupPreview);
    }
 
    _likeFunc(ev) {

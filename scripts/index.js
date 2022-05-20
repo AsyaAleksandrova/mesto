@@ -53,6 +53,30 @@ const initialCards = [
   }
 ];
 
+import { FormValidator } from './FormValidator.js';
+import { Card } from './Cards.js';
+
+const saveFoto = function (card) {
+   const userCard = new Card(card, '#card');
+   const newCard = userCard.createCard();
+   fotoList.prepend(newCard);
+}
+
+const preloadCards = function (preloadCards) {
+   preloadCards.forEach(element => {
+      saveFoto(element);
+   });
+}
+
+
+forms.forEach(form => {
+   const validForm = new FormValidator(selectorsValid, form)
+   validForm.enableValidation();
+});
+
+preloadCards(initialCards);
+
+
 const openPopup = function (popOp) { 
    popOp.classList.add('popup_open');
    document.addEventListener('keydown', closeByEsc);
@@ -68,31 +92,6 @@ const closeByEsc = (ev) => {
       closePopup(popOpened);
    }
 }
-
-const saveFoto = function (card) {
-   const userCard = new Card(card, '#card');
-   const newCard = userCard.createCard();
-   fotoList.prepend(newCard);
-}
-
-const preloadCards = function (preloadCards) {
-   preloadCards.forEach(element => {
-      saveFoto(element);
-   });
-}
-
-
-import { FormValidator } from './FormValidator.js';
-import { Card } from './Cards.js';
-export { popupPreview, openPopup };
-
-forms.forEach(form => {
-   const validForm = new FormValidator(selectorsValid, form)
-   validForm.enableValidation();
-});
-
-preloadCards(initialCards);
-
 
 popupList.forEach(popup => {
    popup.addEventListener('click', (ev) => {
@@ -114,9 +113,11 @@ buttonEditProfile.addEventListener('click', function(){
    inputDesc.value = userDesc.textContent;
    openPopup(popupProfile);
 });
+
 buttonCloseProfile.addEventListener('click', function () {
    closePopup(popupProfile);
 });
+
 formProfile.addEventListener('submit', savePopup);
 
 buttonFotoAdd.addEventListener('click', function () {
@@ -131,6 +132,12 @@ buttonCloseFotoAdd.addEventListener('click', function () {
    closePopup(popupFotoAdd);
 });
 
+document.querySelectorAll('.foto__picture').forEach(photo => {
+   photo.addEventListener('click', function () {
+      openPopup(popupPreview);
+   })
+})
+
 buttonClosePreview.addEventListener('click', function () {
    closePopup(popupPreview);
 })
@@ -144,5 +151,3 @@ formFotoAdd.addEventListener('submit', (ev) => {
    saveFoto(newCard);
    closePopup(popupFotoAdd);
 })
-
-
