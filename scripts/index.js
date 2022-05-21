@@ -11,10 +11,6 @@ const buttonCloseFotoAdd = popupFotoAdd.querySelector('.popup__close');
 const inputFotoName = document.querySelector('.popup__input_foto_name');
 const inputFotoLink = document.querySelector('.popup__input_foto_src');
 const formFotoAdd = popupFotoAdd.querySelector('.popup__form');
-export const popupPreview = document.querySelector('.popup_type_foto-preview');
-export const namePreviewFoto = popupPreview.querySelector('.popup__description');
-export const picturePreviewFoto = popupPreview.querySelector('.popup__picture');
-const buttonClosePreview = popupPreview.querySelector('.popup__close');
 const buttonFotoAdd = document.querySelector('.profile__add-button');
 const popupList = Array.from(document.querySelectorAll('.popup'));
 const fotoList = document.querySelector('.foto');
@@ -52,7 +48,7 @@ const initialCards = [
     link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
   }
 ];
-
+import { popupPreview, buttonClosePreview, openPopup, closePopup } from './utils.js';
 import { FormValidator } from './FormValidator.js';
 import { Card } from './Card.js';
 
@@ -60,15 +56,16 @@ const insertFoto = function (newcard) {
    fotoList.prepend(newcard);
 }
 
-const saveFoto = function (card) {
+const createCard = function (card) {
    const userCard = new Card(card, '#card');
    const newCard = userCard.createCard();
-   insertFoto(newCard);
+   return newCard
 }
 
 const preloadCards = function (preloadCards) {
    preloadCards.forEach(element => {
-      saveFoto(element);
+      let newCard = createCard(element);
+      insertFoto(newCard);
    });
 }
 
@@ -80,22 +77,6 @@ validProfile.enableValidation();
 const validFotoAdd = new FormValidator(selectorsValid, formFotoAdd);
 validFotoAdd.enableValidation();
 
-
-export const openPopup = function (popOp) { 
-   popOp.classList.add('popup_open');
-   document.addEventListener('keydown', closeByEsc);
-} 
-
-const closePopup = function (popCl) { 
-   popCl.classList.remove('popup_open');
-   document.removeEventListener('keydown', closeByEsc);
-} 
-const closeByEsc = (ev) => {
-   if (ev.key === "Escape") {
-      const popOpened = document.querySelector('.popup_open');
-      closePopup(popOpened);
-   }
-}
 
 popupList.forEach(popup => {
    popup.addEventListener('click', (ev) => {
@@ -145,6 +126,7 @@ formFotoAdd.addEventListener('submit', (ev) => {
          name: inputFotoName.value,
          link: inputFotoLink.value
       }
-   saveFoto(newCard);
+   let svCard = createCard(newCard);
+   insertFoto(svCard);
    closePopup(popupFotoAdd);
 })

@@ -1,7 +1,6 @@
+import { popupPreview, namePreviewFoto, picturePreviewFoto, openPopup } from './utils.js';
 
-import { popupPreview, namePreviewFoto, picturePreviewFoto, openPopup } from './index.js';
-
-
+// push почему-то не подхватывает изменение заглавной буквы (изменила на самой странице github, надеюсь, поможет)
 export class Card {
    constructor(data, selector) {
      this._name = data.name;
