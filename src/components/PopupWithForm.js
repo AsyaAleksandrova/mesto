@@ -11,7 +11,7 @@ export class PopupWithForm extends Popup{
    }
 
    _getInputValues = () => {
-      let inputValues = {};
+      const inputValues = {};
       this._inputList.forEach(input => {
          inputValues[input.name] = input.value;
       });
@@ -20,25 +20,18 @@ export class PopupWithForm extends Popup{
 
    _submitForm = (ev) => {
       ev.preventDefault();
-      this._submitFunction(this._getInputValues());
-      this.close();      
+      this._submitFunction(this._getInputValues());      
    }
 
-   _setEventListeners(){
-      super._setEventListeners();
+   setEventListeners(){
+      super.setEventListeners();
       this._form.addEventListener('submit', this._submitForm);
-   }
-
-   _removeEventListeners() {
-      super._removeEventListeners();
-      this._form.removeEventListener('submit', this._submitForm);
    }
 
    close = () => {
       this._inputList.forEach(input => {
          input.value = '';
       });
-      this._popup.classList.remove('popup_open');
-      this._removeEventListeners();
+      super.close();
    }
 }
