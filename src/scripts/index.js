@@ -59,8 +59,8 @@ const popupFotoAdd = new PopupWithForm({
    selector:'.popup_type_foto-add',
    submitFunction: (input) => {
       const newCard = {
-            name: input.foto_name,
-            link: input.foto_link
+            name: input.fotoname,
+            link: input.fotolink
          }
        let svCard = createCard(newCard);
        cardSetion.addItem(svCard);
@@ -75,7 +75,7 @@ buttonFotoAdd.addEventListener('click', () => {
 const popupProfile = new PopupWithForm({
    selector: '.popup_type_profile',
    submitFunction: (input) => {
-      User.setUserInfo(input.profile_name, input.profile_description);
+      User.setUserInfo(input.profilename, input.profiledescription);
    }
 });
 
