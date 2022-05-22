@@ -1,3 +1,5 @@
+import '../pages/index.css';
+
 const buttonEditProfile = document.querySelector('.profile__edit-button');
 const inputName = document.querySelector('.popup__input_value_name');
 const inputDesc = document.querySelector('.popup__input_value_desc');
@@ -37,12 +39,12 @@ const initialCards = [
   }
 ];
 
-import { FormValidator } from './FormValidator.js';
-import { Card } from './Card.js';
-import { Section } from './Section.js';
-import {PopupWithImage} from './PopupWithImage.js'
-import { PopupWithForm } from './PopupWithForm.js';
-import { UserInfo } from './UserInfo.js';
+import { FormValidator } from './componenets/FormValidator.js';
+import { Card } from './componenets/Card.js';
+import { Section } from './componenets/Section.js';
+import {PopupWithImage} from './componenets/PopupWithImage.js'
+import { PopupWithForm } from './componenets/PopupWithForm.js';
+import { UserInfo } from './componenets/UserInfo.js';
 
 
 const User = new UserInfo('.profile__name', '.profile__description');
