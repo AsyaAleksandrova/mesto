@@ -38,11 +38,11 @@
          <form name="input-profile" class="popup__form">
             <button type="button" class="popup__close"></button>
             <h2 class="popup__title">Редактировать профиль</h2>
-            <input type="text" name="profile-name" required minlength="2" maxlength="40" class="popup__input popup__input_value_name" value="Жак-Ив Кусто">
-            <span class="popup__error profile-name-error"></span>
-            <input type="text" name="profile-description" minlength="2" maxlength="200" required class="popup__input popup__input_value_desc" value="Исследователь океана">
-            <span class="popup__error profile-description-error"></span>
-            <button type="submit" disabled class="popup__button">Сохранить</button>
+            <input type="text" name="profile_name" required minlength="2" maxlength="40" class="popup__input popup__input_value_name" value="Жак-Ив Кусто">
+            <span class="popup__error profile_name-error"></span>
+            <input type="text" name="profile_description" minlength="2" maxlength="200" required class="popup__input popup__input_value_desc" value="Исследователь океана">
+            <span class="popup__error profile_description-error"></span>
+            <button type="submit" class="popup__button">Сохранить</button>
          </form>
       </div>
    </section>
@@ -51,12 +51,12 @@
          <form name="input-foto" class="popup__form">
             <button type="button" class="popup__close"></button>
             <h2 class="popup__title">Новое место</h2>
-            <input type="text" name="foto-name" required minlength="2" maxlength="30" class="popup__input popup__input_foto_name" placeholder="Название">
-            <span class="popup__error foto-name-error"></span>
-            <input type="url" name="foto-description" required class="popup__input popup__input_foto_src"
+            <input type="text" name="foto_name" required minlength="2" maxlength="30" class="popup__input popup__input_foto_name" placeholder="Название">
+            <span class="popup__error foto_name-error"></span>
+            <input type="url" name="foto_link" required class="popup__input popup__input_foto_src"
                placeholder="Ссылка на картинку">
-            <span class="popup__error foto-description-error"></span>
-            <button type="submit" disabled class="popup__button">Создать</button>
+            <span class="popup__error foto_link-error"></span>
+            <button type="submit" class="popup__button">Создать</button>
          </form>
       </div>
    </section>

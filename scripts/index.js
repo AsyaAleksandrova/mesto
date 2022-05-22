@@ -1,19 +1,7 @@
 const buttonEditProfile = document.querySelector('.profile__edit-button');
-const popupProfile = document.querySelector('.popup_type_profile');
-const buttonCloseProfile = popupProfile.querySelector('.popup__close');
-const userName = document.querySelector('.profile__name');
-const userDesc = document.querySelector('.profile__description');
 const inputName = document.querySelector('.popup__input_value_name');
 const inputDesc = document.querySelector('.popup__input_value_desc');
-const formProfile = popupProfile.querySelector('.popup__form');
-const popupFotoAdd = document.querySelector('.popup_type_foto-add');
-const buttonCloseFotoAdd = popupFotoAdd.querySelector('.popup__close');
-const inputFotoName = document.querySelector('.popup__input_foto_name');
-const inputFotoLink = document.querySelector('.popup__input_foto_src');
-const formFotoAdd = popupFotoAdd.querySelector('.popup__form');
 const buttonFotoAdd = document.querySelector('.profile__add-button');
-const popupList = Array.from(document.querySelectorAll('.popup'));
-const fotoList = document.querySelector('.foto');
 const selectorsValid = {
    formSelector: '.popup__form',
    inputSelector: '.popup__input',
@@ -48,85 +36,74 @@ const initialCards = [
     link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
   }
 ];
-import { popupPreview, buttonClosePreview, openPopup, closePopup } from './utils.js';
+
 import { FormValidator } from './FormValidator.js';
 import { Card } from './Card.js';
+import { Section } from './Section.js';
+import {PopupWithImage} from './PopupWithImage.js'
+import { PopupWithForm } from './PopupWithForm.js';
+import { UserInfo } from './UserInfo.js';
 
-const insertFoto = function (newcard) {
-   fotoList.prepend(newcard);
+
+const User = new UserInfo('.profile__name', '.profile__description');
+
+const popupPreview = new PopupWithImage('.popup_type_foto-preview');
+
+const handleCardClick = (name, link) => {
+   popupPreview.open(name, link)
 }
 
+const popupFotoAdd = new PopupWithForm({
+   selector:'.popup_type_foto-add',
+   submitFunction: (input) => {
+      const newCard = {
+            name: input.foto_name,
+            link: input.foto_link
+         }
+       let svCard = createCard(newCard);
+       cardSetion.addItem(svCard);
+   }
+   });
+
+buttonFotoAdd.addEventListener('click', () => {
+   validFotoAdd.disableSubmitButton();
+   popupFotoAdd.open();
+});
+
+const popupProfile = new PopupWithForm({
+   selector: '.popup_type_profile',
+   submitFunction: (input) => {
+      User.setUserInfo(input.profile_name, input.profile_description);
+   }
+});
+
+buttonEditProfile.addEventListener('click', function () {
+   const profile = User.getUserInfo();
+   inputName.value = profile.name;
+   inputDesc.value = profile.description;
+   popupProfile.open();
+});
+
+const validProfile = new FormValidator(selectorsValid, popupProfile._form);
+validProfile.enableValidation();
+const validFotoAdd = new FormValidator(selectorsValid, popupFotoAdd._form);
+validFotoAdd.enableValidation();
+
+
 const createCard = function (card) {
-   const userCard = new Card(card, '#card');
+   const userCard = new Card(card, '#card', handleCardClick);
    const newCard = userCard.createCard();
    return newCard
 }
 
-const preloadCards = function (preloadCards) {
-   preloadCards.forEach(element => {
-      let newCard = createCard(element);
-      insertFoto(newCard);
-   });
-}
+const cardSectionSelector = '.foto';
 
-preloadCards(initialCards);
+const cardSetion = new Section({
+   items: initialCards,
+   renderer: (card) => {
+      const newCard = createCard(card);
+      cardSetion.addItem(newCard);
+   }
+}, cardSectionSelector);
 
-
-const validProfile = new FormValidator(selectorsValid, formProfile);
-validProfile.enableValidation();
-const validFotoAdd = new FormValidator(selectorsValid, formFotoAdd);
-validFotoAdd.enableValidation();
-
-
-popupList.forEach(popup => {
-   popup.addEventListener('click', (ev) => {
-      if (ev.target === popup) {
-         closePopup(popup);
-      }
-   })
-})
-
-const savePopup = function (ev) {
-   ev.preventDefault();
-   userName.textContent = inputName.value;
-   userDesc.textContent = inputDesc.value;
-   closePopup(popupProfile);
-}
-
-buttonEditProfile.addEventListener('click', function(){
-   inputName.value = userName.textContent;
-   inputDesc.value = userDesc.textContent;
-   openPopup(popupProfile);
-});
-
-buttonCloseProfile.addEventListener('click', function () {
-   closePopup(popupProfile);
-});
-
-formProfile.addEventListener('submit', savePopup);
-
-buttonFotoAdd.addEventListener('click', function () {
-   inputFotoName.value = '';
-   inputFotoLink.value = '';
-   validFotoAdd.disableSubmitButton();
-   openPopup(popupFotoAdd);
-});
-
-buttonCloseFotoAdd.addEventListener('click', function () {
-   closePopup(popupFotoAdd);
-});
-
-buttonClosePreview.addEventListener('click', function () {
-   closePopup(popupPreview);
-})
-
-formFotoAdd.addEventListener('submit', (ev) => {
-   ev.preventDefault();
-   const newCard = {
-         name: inputFotoName.value,
-         link: inputFotoLink.value
-      }
-   let svCard = createCard(newCard);
-   insertFoto(svCard);
-   closePopup(popupFotoAdd);
-})
+cardSetion.renderItems();

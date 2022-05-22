@@ -1,11 +1,9 @@
-import { popupPreview, namePreviewFoto, picturePreviewFoto, openPopup } from './utils.js';
-
-// push почему-то не подхватывает изменение заглавной буквы (изменила на самой странице github, надеюсь, поможет)
 export class Card {
-   constructor(data, selector) {
-     this._name = data.name;
-     this._link = data.link;
-     this._selector = selector;
+   constructor(data, selector, handleCardClick) {
+      this._name = data.name;
+      this._link = data.link;
+      this._selector = selector;
+      this._handleCardClick = handleCardClick;
    };
    
    _getTemplate() {
@@ -16,14 +14,7 @@ export class Card {
          .cloneNode(true);
       return userCard;
    }
-  
-   _previewFunc() {
-      namePreviewFoto.textContent = this._name;
-      picturePreviewFoto.src = this._link;
-      picturePreviewFoto.alt = this._name; 
-      openPopup(popupPreview);
-   }
-   
+ 
    _likeFunc() {
       this._likeButton.classList.toggle('foto__like-button_active');
    }
@@ -33,7 +24,7 @@ export class Card {
    }
 
    _setEventListeners() {
-      this._card.querySelector('.foto__picture').addEventListener('click', () => this._previewFunc());
+      this._card.querySelector('.foto__picture').addEventListener('click', () => this._handleCardClick(this._name, this._link));
       this._likeButton.addEventListener('click', () => this._likeFunc());
       this._card.querySelector('.foto__delete-button').addEventListener('click', () => this._deleteCard());
    }  
