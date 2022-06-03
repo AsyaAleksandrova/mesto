@@ -80,9 +80,11 @@ const popupProfile = new PopupWithForm({
          .then((result) => {
             user.setUserInfo(result.name, result.about, result.avatar);
             popupProfile.close();
+         })
+         .catch(api.catchError)
+         .finally(() => {
             popupProfile.btt.textContent = 'Сохранить';
          })
-         .catch(api.catchError);
    }
 });
 popupProfile.setEventListeners();
@@ -105,10 +107,12 @@ const popupAvatar = new PopupWithForm({
       api.setAvatar(input.avatar)
          .then((result) => {
             user.setUserInfo(result.name, result.about, result.avatar);
-            popupAvatar.close();
-            popupAvatar.btt.textContent = 'Сохранить';            
+            popupAvatar.close();          
          })
-         .catch(api.catchError);
+         .catch(api.catchError)
+         .finally(() => {
+            popupAvatar.btt.textContent = 'Сохранить';
+         })      
    }
 });
 popupAvatar.setEventListeners();
@@ -131,10 +135,12 @@ const popupFotoAdd = new PopupWithForm({
       api.addCard(input.fotoname, input.fotolink)
          .then((card) => {
             insertCard(card);
-            popupFotoAdd.close();
-            popupFotoAdd.btt.textContent = 'Создать';            
+            popupFotoAdd.close();            
          })
-         .catch(api.catchError);
+         .catch(api.catchError)
+         .finally(() => {
+            popupFotoAdd.btt.textContent = 'Создать';
+         })       
    }
 });
 popupFotoAdd.setEventListeners();
