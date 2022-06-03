@@ -4,6 +4,17 @@ export class Api {
      this._pass = options.pass;
   }
 
+   _checkResponse(res) {
+      if (res.ok) {    
+         return res.json();
+      }
+         return Promise.reject(`Ошибка ${res.status}`);
+   }
+
+   catchError(err) {
+      console.log(err);
+   }
+
    getUserInfo() {
       const setUrl = this._url + '/users/me'
       return fetch(setUrl, {
@@ -12,6 +23,7 @@ export class Api {
             authorization: this._pass
          }
       })
+      .then(this._checkResponse)
    }
    
    setUserInfo(name, description) {
@@ -26,7 +38,8 @@ export class Api {
             name: name,
             about: description
          })         
-      })           
+      })
+      .then(this._checkResponse)
    }
 
    setAvatar(link) {
@@ -40,7 +53,8 @@ export class Api {
          body: JSON.stringify({
             avatar: link
          })
-      })              
+      })
+      .then(this._checkResponse)
    }
 
   getInitialCards() {
@@ -51,6 +65,7 @@ export class Api {
          authorization: this._pass
       }
       })
+     .then(this._checkResponse)
   }
    
    addCard(name, link) {
@@ -66,6 +81,7 @@ export class Api {
             link: link
          })
       })
+      .then(this._checkResponse)
    }
 
    deleteCard(id) {
@@ -75,7 +91,8 @@ export class Api {
          headers: {
             authorization: this._pass
          }
-      })      
+      })
+      .then(this._checkResponse)
    }
 
    putLike(id) {
@@ -86,6 +103,7 @@ export class Api {
             authorization: this._pass
          }
       })
+      .then(this._checkResponse)
    }
    deleteLike(id) {
       const setUrl = this._url + `/cards/${id}/likes`;
@@ -95,5 +113,6 @@ export class Api {
             authorization: this._pass
          }
       })
+      .then(this._checkResponse)
    }   
 }

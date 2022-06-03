@@ -4,7 +4,7 @@ export class PopupWithForm extends Popup{
    constructor({ selector, submitFunction }) {
       super(selector);
       this._form = this._popup.querySelector('.popup__form');
-      this._btt = this._popup.querySelector('.popup__button');
+      this.btt = this._popup.querySelector('.popup__button');
       this._submitFunction = submitFunction;
       this._inputList = this._popup.querySelectorAll('.popup__input');
 
@@ -29,9 +29,7 @@ export class PopupWithForm extends Popup{
    }
 
    close = () => {
-      this._inputList.forEach(input => {
-         input.value = '';
-      });
+      this._form.reset();
       super.close();
    }
 }
