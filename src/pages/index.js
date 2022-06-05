@@ -121,7 +121,6 @@ const validAvatar = new FormValidator(selectorsValid, popupAvatar._form);
 validAvatar.enableValidation();
 
 avatar.addEventListener('click', function () {
-   document.querySelector('.popup__input_avatar').value = '';
    validAvatar.disableSubmitButton();
    popupAvatar.open()
 })
